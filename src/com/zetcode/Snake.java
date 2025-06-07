@@ -3,16 +3,11 @@ package com.zetcode;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Dibuat untuk mengatasi Design Smell: God Class dan Feature Envy.
- * Kelas ini mengambil alih semua logika dan data yang berhubungan dengan ular.
- */
 public class Snake {
     private final List<Dot> body;
     private Direction direction;
     private boolean growing = false;
-
-    // Enum dipindahkan ke sini bersama dengan logikanya
+    
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
@@ -28,7 +23,7 @@ public class Snake {
     public List<Dot> getBody() {
         return body;
     }
-
+    
     public Dot getHead() {
         return body.get(0);
     }
@@ -52,7 +47,9 @@ public class Snake {
             case LEFT:  newX -= dotSize; break;
             case RIGHT: newX += dotSize; break;
         }
+
         body.add(0, new Dot(newX, newY));
+
         if (growing) {
             growing = false;
         } else {
@@ -66,6 +63,7 @@ public class Snake {
 
     public boolean checkCollision(int boardWidth, int boardHeight) {
         Dot head = getHead();
+        
         if (head.getX() < 0 || head.getX() >= boardWidth || head.getY() < 0 || head.getY() >= boardHeight) {
             return true;
         }
